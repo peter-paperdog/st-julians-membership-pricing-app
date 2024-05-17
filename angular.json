@@ -24,7 +24,8 @@
         "build": {
           "builder": "@angular-devkit/build-angular:application",
           "options": {
-            "outputPath": "dist/st-julians-membership-pricing-app",
+            "outputPath": "docs",
+            "baseHref": "/st-julians-membership-pricing-app/",
             "index": "src/index.html",
             "browser": "src/main.ts",
             "polyfills": [
@@ -56,6 +57,8 @@
                   "maximumError": "4kb"
                 }
               ],
+              "outputPath": "docs",
+              "baseHref": "/st-julians-membership-pricing-app/",
               "outputHashing": "all"
             },
             "development": {

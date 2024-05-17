@@ -6,6 +6,7 @@ import {DistanceService} from "./services/distance.service";
 import {Costs} from "./models/costs";
 import {AppConfig} from "./app-config";
 import {MembershipService} from "./services/membership.service";
+import {Membership} from "./models/membership";
 
 @Component({
   selector: 'app-root',
@@ -14,6 +15,7 @@ import {MembershipService} from "./services/membership.service";
 })
 export class AppComponent {
   costs: Costs | undefined;
+  membership: Membership | undefined;
   membershipForm: FormGroup;
   childrenCounts = [0, 1, 2, 3, 4]; // Array to store the number of children options
 
@@ -21,6 +23,7 @@ export class AppComponent {
     this.membershipForm = new FormGroup({
       membership_type: new FormControl(undefined, Validators.required),
       adults: new FormControl(undefined, Validators.required),
+      seniors: new FormControl(undefined, Validators.required),
       children: new FormControl(undefined, Validators.required),
       nanny: new FormControl(undefined, Validators.required),
       pastMember: new FormControl(undefined, Validators.required),
@@ -45,7 +48,21 @@ export class AppComponent {
       }
     })
 
-    this.calculate();
+
+
+    let formData =
+      {
+        membership_type: 'full',
+        past_member: false,
+        adults: 2,
+        seniors: 0,
+        children: 3,
+        nanny: false,
+        pastMember: false,
+        postcode: 'SE14PR',
+        distance: 33.3
+      }
+    this.membershipForm.patchValue(formData);
   }
 
   setChildren(number: number) {
@@ -54,6 +71,10 @@ export class AppComponent {
 
   setAdults(number: number) {
     this.membershipForm.get('adults')?.setValue(number);
+  }
+
+  setSeniors(number: number) {
+    this.membershipForm.get('seniors')?.setValue(number);
   }
 
   setNanny(b: boolean) {
@@ -91,21 +112,9 @@ export class AppComponent {
   }
 
   private calculate() {
-//    let formData1 = this.membershipForm.getRawValue();
-
-    let formData =
-      {
-        membership_type: 'full',
-        adults: 2,
-        seniors: 0,
-        children: 3,
-        nanny: false,
-        pastMember: false,
-        postcode: 'SE14PR',
-        distance: 33.3
-      }
-
-    this.costs = this.MembershipSrv.preCalculateCosts(formData);
+    let formData = this.membershipForm.getRawValue();
+    this.membership = new Membership(formData.postcode, formData.distance, formData.membership_type, formData.adults, formData.seniors, formData.children, formData.pastMember);
+    this.costs = this.membership.getCosts();
   }
 
   private handleValidPostcode(postcode: string) {
