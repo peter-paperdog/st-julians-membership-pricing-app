@@ -75,7 +75,8 @@
             a direct line from St Julians,
             you are eligible for a discount.
           </mat-hint>
-          <mat-hint align="start" *ngIf="membershipForm.get('distance')?.value>12.5">Your address is {{ membershipForm.get('distance')?.value }} miles from St Julians.
+          <mat-hint align="start" *ngIf="membershipForm.get('distance')?.value>12.5">Your address
+            is {{ membershipForm.get('distance')?.value }} miles from St Julians.
             A
             discount has been applied below.
           </mat-hint>
@@ -89,23 +90,27 @@
       <div class="pricing-table">
         <div class="row">
           <div class="table-cell">Entrance fee*</div>
-          <div class="table-cell">
+          <div class="table-cell price">
             <span *ngIf="!costs">TBC</span>
-            <span *ngIf="costs">{{ costs.entrance_fee }}</span>
+            <span *ngIf="costs">{{ costs.entrance_fee|currencyFormatter }}</span>
           </div>
         </div>
         <div class="row">
           <div class="table-cell">Monthly cost</div>
-          <div class="table-cell">
+          <div class="table-cell price">
             <span *ngIf="!costs">TBC</span>
-            <span *ngIf="costs">{{ costs.monthly_cost }}</span>
+            <span
+              *ngIf="costs&&costs.monthly_cost_original">{{ costs.monthly_cost_original|currencyFormatter }}</span>
+            <span *ngIf="costs">{{ costs.monthly_cost|currencyFormatter }}</span>
           </div>
         </div>
         <div class="row">
           <div class="table-cell">Annual cost</div>
-          <div class="table-cell">
+          <div class="table-cell price">
             <span *ngIf="!costs">TBC</span>
-            <span *ngIf="costs">{{ costs.annual_cost }}</span>
+            <span
+              *ngIf="costs&&costs.annual_cost_original">{{ costs.annual_cost_original|currencyFormatter }}</span>
+            <span *ngIf="costs">{{ costs.annual_cost|currencyFormatter }}</span>
           </div>
         </div>
       </div>
