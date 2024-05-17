@@ -13,10 +13,12 @@ import {MatButton} from "@angular/material/button";
 import {MatInput} from "@angular/material/input";
 import {ReactiveFormsModule} from "@angular/forms";
 import {HttpClientModule} from "@angular/common/http";
+import { CurrencyFormatterPipe } from './currency-formatter.pipe';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    CurrencyFormatterPipe
   ],
   imports: [
     HttpClientModule,
