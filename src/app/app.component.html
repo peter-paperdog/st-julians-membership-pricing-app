@@ -71,16 +71,17 @@
       <div class="form-group">
         <mat-form-field>
           <input matInput maxlength="7" formControlName="postcode" placeholder="Enter your postcode" id="postcode">
-          <mat-hint align="start" *ngIf="!distance">If you live further than 12.5 miles in a direct line from St Julians,
+          <mat-hint align="start" *ngIf="!membershipForm.get('distance')?.value">If you live further than 12.5 miles in
+            a direct line from St Julians,
             you are eligible for a discount.
           </mat-hint>
-          <mat-hint align="start" *ngIf="distance&&distance>12.5">Your address is {{distance}} miles from St Julians. A
+          <mat-hint align="start" *ngIf="membershipForm.get('distance')?.value>12.5">Your address is {{ membershipForm.get('distance')?.value }} miles from St Julians.
+            A
             discount has been applied below.
           </mat-hint>
           <div
             *ngIf="membershipForm.get('postcode')?.invalid && (membershipForm.get('postcode')?.dirty || membershipForm.get('postcode')?.touched)">
             <div *ngIf="membershipForm.get('postcode')?.errors?.['required']">Postcode is required.</div>
-            <div *ngIf="membershipForm.get('postcode')?.errors?.['invalidPostcode']">Invalid UK postcode.</div>
           </div>
         </mat-form-field>
       </div>
