@@ -1,0 +1,196 @@
+
+a {
+  color: white;
+}
+
+.wrapper {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  justify-content: space-between;
+  color: white !important;
+  font-family: "EB Garamond", serif !important;
+}
+
+header {
+  text-align: center;
+  padding: 20px 0;
+  background: var(--colour-rosemary, #668077);
+}
+
+main {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  background: linear-gradient(0deg, var(--colour-black-10, rgba(0, 0, 0, 0.10)) 0%, var(--colour-black-10, rgba(0, 0, 0, 0.10)) 100%), var(--colour-rosemary, #668077);
+}
+
+footer {
+  font-family: "Montserrat", sans-serif !important;
+  display: flex;
+  background: var(--colour-gold, #AE9A64);
+  justify-content:  center;
+
+  .footer-container{
+    margin: 80px auto;
+    text-align: center;
+    padding: 20px;
+    max-width: 742px;
+    font-size: 16px;
+  }
+
+  button{
+    background: white;
+    color: var(--button-invert-text, #204232);
+    border-radius: 0;
+    box-shadow: none;
+    font-size: 16px;
+    padding: 16px 20px;
+    margin-top: 32px;
+  }
+}
+
+h1 {
+  margin: 0;
+}
+
+main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Horizontally centers the content */
+  justify-content: center; /* Vertically centers the content */
+  padding: 56px 160px;
+
+  form {
+    font-family: "Montserrat", sans-serif;
+  }
+
+}
+
+mat-card {
+  width: 100%;
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #4A6A69; /* Mat card background color to match design */
+  color: white;
+  box-shadow: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+label {
+  display: block;
+  margin-top: 20px;
+  margin-bottom: 5px;
+}
+
+.membership-card {
+  width: 100%;
+  max-width: 400px;
+  padding: 20px;
+  background: var(--colour-white-20, rgba(255, 255, 255, 0.20));
+  color: white;
+  cursor: pointer;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.membership-card.selected {
+  background-color: white; /* Highlight color for selected card */
+  color: #668077;
+  transform: scale(1.05);
+  box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.3);
+}
+
+.membership-cards {
+  display: flex;
+  gap: 20px;
+}
+
+form {
+  width: 100%;
+  max-width: 800px;
+  font-size: 16px;
+
+  .form-group {
+    width: 100%;
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    mat-form-field {
+      width: 100%;
+    }
+
+    p.hint-note {
+      font-size: 14px;
+      color: rgba(255, 255, 255, 0.5);
+      padding-left: 0;
+    }
+
+    button {
+      background: var(--colour-white-20, rgba(255, 255, 255, 0.20));
+      width: 80px;
+      margin: 6px;
+
+      &.selected {
+        background: #FFFFFF;
+        color: #204232;
+      }
+    }
+  }
+}
+
+div.pricing-table {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  padding-bottom: 16px;
+  border-collapse: collapse; /* Optional: to remove the gaps between cells */
+
+  div.row {
+    border-bottom: 1px solid var(--colour-white, #FFF);
+    padding: 16px 0px;
+    display: flex;
+    flex-direction: row;
+
+    .table-cell {
+      flex: 1; /* Makes each cell take up an equal amount of space */
+      display: flex; /* Add flex display to cell for child alignment */
+      justify-content: space-between; /* Distribute space between first and last child */
+
+      &:first-child {
+        justify-content: flex-start; /* Left align first child */
+      }
+
+      &:last-child {
+        justify-content: flex-end; /* Right align last child */
+      }
+    }
+  }
+}
+
+.button-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  button{
+    background: white;
+    color: var(--button-invert-text, #204232);
+    border-radius: 0;
+    box-shadow: none;
+    font-size: 16px;
+    padding: 16px 20px;
+  }
+
+  div{
+    margin-top: 10px;
+  }
+}
