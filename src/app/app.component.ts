@@ -23,6 +23,8 @@ export class AppComponent {
   costs: Costs | undefined;
   membershipForm: FormGroup;
   childrenCounts = [0, 1, 2, 3, 4]; // Array to store the number of children options
+  distance: number | undefined;
+
   constructor(private postcodeSrv: PostcodeService, private distanceService: DistanceService) {
     this.membershipForm = new FormGroup({
       selectedMembership: new FormControl(undefined, Validators.required),
@@ -105,20 +107,20 @@ export class AppComponent {
   }
 
   private handleValidPostcode(postcode: string) {
-    console.log(postcode);
     this.postcodeSrv.getPostcode(postcode).subscribe((data) => {
       const lat1 = 51.251452;   //St Julians coordinates
       const lon1 = 0.182492;    //St Julians coordinates
       let lat2 = data.result.latitude;
       let lon2 = data.result.longitude;
-        try {
-          let distance = this.distanceService.haversineDistance(lat1, lon1, lat2, lon2);
-          let roundedDistance = Number(distance.toFixed(2)); // Round to 2 decimal places
-          console.log(roundedDistance);
-        } catch (error) {
-          console.error('Error calculating distance');
-        }
+      try {
+        let distance = this.distanceService.haversineDistance(lat1, lon1, lat2, lon2);
+        this.distance = Number(distance.toFixed(2)); // Round to 2 decimal places
+      } catch (error) {
+        this.distance = undefined;
+        console.error('Error calculating distance');
+      }
     }, (error) => {
+      this.distance = undefined;
       console.error(error);
     })
   }

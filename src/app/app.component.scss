@@ -128,10 +128,15 @@ form {
       width: 100%;
     }
 
+    mat-hint,
     p.hint-note {
       font-size: 14px;
       color: rgba(255, 255, 255, 0.5);
       padding-left: 0;
+    }
+    mat-hint{
+      margin-left: -10px;
+      margin-top: 16px;
     }
 
     button {
@@ -152,6 +157,7 @@ div.pricing-table {
   flex-direction: column;
   width: 100%;
   padding-bottom: 16px;
+  margin-top: 32px;
   border-collapse: collapse; /* Optional: to remove the gaps between cells */
 
   div.row {
