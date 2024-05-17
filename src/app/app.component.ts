@@ -1,16 +1,19 @@
 import {Component} from '@angular/core';
 import {FormControl, FormGroup, Validators} from "@angular/forms";
-import { ukPostcodeValidator } from './validators';
+import {ukPostcodeValidator} from './validators';
+import {PostcodeService} from "./services/postcode.service";
+import {DistanceService} from "./services/distance.service";
 
 
 interface Costs {
   entrance_fee: number;
   monthly_cost: number;
   annual_cost: number;
-  entrance_fee_discounted: number|undefined;
-  monthly_cost_discounted: number|undefined;
-  annual_cost_discounted: number|undefined;
+  entrance_fee_discounted: number | undefined;
+  monthly_cost_discounted: number | undefined;
+  annual_cost_discounted: number | undefined;
 }
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -20,7 +23,7 @@ export class AppComponent {
   costs: Costs | undefined;
   membershipForm: FormGroup;
   childrenCounts = [0, 1, 2, 3, 4]; // Array to store the number of children options
-  constructor() {
+  constructor(private postcodeSrv: PostcodeService, private distanceService: DistanceService) {
     this.membershipForm = new FormGroup({
       selectedMembership: new FormControl(undefined, Validators.required),
       adults: new FormControl(undefined, Validators.required),
@@ -35,6 +38,17 @@ export class AppComponent {
     this.membershipForm.valueChanges.subscribe(() => {
       this.handleValueChanges();
     });
+
+    this.membershipForm.get('postcode')?.valueChanges.subscribe((postcode) => {
+      if (postcode) {
+        const uppercasePostcode = postcode.toUpperCase();
+        this.membershipForm.get('postcode')?.setValue(uppercasePostcode, {emitEvent: false});
+      }
+
+      if (this.membershipForm.get('postcode')?.valid) {
+        this.handleValidPostcode(postcode.toUpperCase());
+      }
+    })
   }
 
   setChildren(number: number) {
@@ -88,5 +102,24 @@ export class AppComponent {
       annual_cost: 1100,
       annual_cost_discounted: undefined
     }
+  }
+
+  private handleValidPostcode(postcode: string) {
+    console.log(postcode);
+    this.postcodeSrv.getPostcode(postcode).subscribe((data) => {
+      const lat1 = 51.251452;   //St Julians coordinates
+      const lon1 = 0.182492;    //St Julians coordinates
+      let lat2 = data.result.latitude;
+      let lon2 = data.result.longitude;
+        try {
+          let distance = this.distanceService.haversineDistance(lat1, lon1, lat2, lon2);
+          let roundedDistance = Number(distance.toFixed(2)); // Round to 2 decimal places
+          console.log(roundedDistance);
+        } catch (error) {
+          console.error('Error calculating distance');
+        }
+    }, (error) => {
+      console.error(error);
+    })
   }
 }
