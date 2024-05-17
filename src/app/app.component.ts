@@ -3,16 +3,8 @@ import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {ukPostcodeValidator} from './validators';
 import {PostcodeService} from "./services/postcode.service";
 import {DistanceService} from "./services/distance.service";
-
-
-interface Costs {
-  entrance_fee: number;
-  monthly_cost: number;
-  annual_cost: number;
-  entrance_fee_discounted: number | undefined;
-  monthly_cost_discounted: number | undefined;
-  annual_cost_discounted: number | undefined;
-}
+import {Costs} from "./models/costs";
+import {AppConfig} from "./app-config";
 
 @Component({
   selector: 'app-root',
@@ -32,7 +24,8 @@ export class AppComponent {
       children: new FormControl(undefined, Validators.required),
       nanny: new FormControl(undefined, Validators.required),
       pastMember: new FormControl(undefined, Validators.required),
-      postcode: new FormControl(undefined, [Validators.required, ukPostcodeValidator])
+      postcode: new FormControl(undefined, [Validators.required, ukPostcodeValidator]),
+      distance: new FormControl(undefined, Validators.required)
     });
   }
 
@@ -108,19 +101,17 @@ export class AppComponent {
 
   private handleValidPostcode(postcode: string) {
     this.postcodeSrv.getPostcode(postcode).subscribe((data) => {
-      const lat1 = 51.251452;   //St Julians coordinates
-      const lon1 = 0.182492;    //St Julians coordinates
-      let lat2 = data.result.latitude;
-      let lon2 = data.result.longitude;
+      const { latitude, longitude } = AppConfig.baseCoordinates; // Use base coordinates from config
+
       try {
-        let distance = this.distanceService.haversineDistance(lat1, lon1, lat2, lon2);
-        this.distance = Number(distance.toFixed(2)); // Round to 2 decimal places
+        let distance = this.distanceService.haversineDistance(latitude, longitude, data.result.latitude, data.result.longitude);
+        this.membershipForm.get('distance')?.setValue(Number(distance.toFixed(2)));
       } catch (error) {
-        this.distance = undefined;
+        this.membershipForm.get('distance')?.setValue(undefined);
         console.error('Error calculating distance');
       }
     }, (error) => {
-      this.distance = undefined;
+      this.membershipForm.get('distance')?.setValue(undefined);
       console.error(error);
     })
   }
