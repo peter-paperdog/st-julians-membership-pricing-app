@@ -5,6 +5,7 @@ import {PostcodeService} from "./services/postcode.service";
 import {DistanceService} from "./services/distance.service";
 import {Costs} from "./models/costs";
 import {AppConfig} from "./app-config";
+import {MembershipService} from "./services/membership.service";
 
 @Component({
   selector: 'app-root',
@@ -15,9 +16,8 @@ export class AppComponent {
   costs: Costs | undefined;
   membershipForm: FormGroup;
   childrenCounts = [0, 1, 2, 3, 4]; // Array to store the number of children options
-  distance: number | undefined;
 
-  constructor(private postcodeSrv: PostcodeService, private distanceService: DistanceService) {
+  constructor(private postcodeSrv: PostcodeService, private distanceService: DistanceService, private MembershipSrv: MembershipService) {
     this.membershipForm = new FormGroup({
       selectedMembership: new FormControl(undefined, Validators.required),
       adults: new FormControl(undefined, Validators.required),
@@ -89,19 +89,12 @@ export class AppComponent {
   }
 
   private calculate() {
-    this.costs = {
-      entrance_fee: 200,
-      entrance_fee_discounted: undefined,
-      monthly_cost: 120,
-      monthly_cost_discounted: undefined,
-      annual_cost: 1100,
-      annual_cost_discounted: undefined
-    }
+    this.costs = this.MembershipSrv.preCalculateCosts(this.membershipForm.getRawValue());
   }
 
   private handleValidPostcode(postcode: string) {
     this.postcodeSrv.getPostcode(postcode).subscribe((data) => {
-      const { latitude, longitude } = AppConfig.baseCoordinates; // Use base coordinates from config
+      const {latitude, longitude} = AppConfig.baseCoordinates; // Use base coordinates from config
 
       try {
         let distance = this.distanceService.haversineDistance(latitude, longitude, data.result.latitude, data.result.longitude);
