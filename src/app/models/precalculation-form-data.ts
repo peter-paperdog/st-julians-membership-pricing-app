@@ -1,6 +1,7 @@
 export interface PrecalculationFormData {
-  selectedMembership: string;
+  membership_type: string;
   adults: number;
+  seniors: number;
   children: number;
   nanny: boolean;
   pastMember: boolean;

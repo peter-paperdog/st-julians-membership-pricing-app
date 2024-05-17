@@ -19,7 +19,7 @@ export class AppComponent {
 
   constructor(private postcodeSrv: PostcodeService, private distanceService: DistanceService, private MembershipSrv: MembershipService) {
     this.membershipForm = new FormGroup({
-      selectedMembership: new FormControl(undefined, Validators.required),
+      membership_type: new FormControl(undefined, Validators.required),
       adults: new FormControl(undefined, Validators.required),
       children: new FormControl(undefined, Validators.required),
       nanny: new FormControl(undefined, Validators.required),
@@ -44,6 +44,8 @@ export class AppComponent {
         this.handleValidPostcode(postcode.toUpperCase());
       }
     })
+
+    this.calculate();
   }
 
   setChildren(number: number) {
@@ -62,8 +64,8 @@ export class AppComponent {
     this.membershipForm.get('pastMember')?.setValue(b);
   }
 
-  selectMembership(membership: string) {
-    this.membershipForm.get('selectedMembership')?.setValue(membership);
+  selectMembership(membership: 'full' | 'social') {
+    this.membershipForm.get('membership_type')?.setValue(membership);
   }
 
   private handleValueChanges() {
@@ -89,7 +91,21 @@ export class AppComponent {
   }
 
   private calculate() {
-    this.costs = this.MembershipSrv.preCalculateCosts(this.membershipForm.getRawValue());
+//    let formData1 = this.membershipForm.getRawValue();
+
+    let formData =
+      {
+        membership_type: 'full',
+        adults: 2,
+        seniors: 0,
+        children: 3,
+        nanny: false,
+        pastMember: false,
+        postcode: 'SE14PR',
+        distance: 33.3
+      }
+
+    this.costs = this.MembershipSrv.preCalculateCosts(formData);
   }
 
   private handleValidPostcode(postcode: string) {

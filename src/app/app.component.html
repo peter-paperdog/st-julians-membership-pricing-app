@@ -5,14 +5,14 @@
 
   <main class="content">
     <section class="membership-cards">
-      <mat-card class="membership-card" [class.selected]="membershipForm.get('selectedMembership')?.value  === 'full'"
+      <mat-card class="membership-card" [class.selected]="membershipForm.get('membership_type')?.value  === 'full'"
                 (click)="selectMembership('full')">
         <h2>Full Membership</h2>
         <p>Full membership covers the use of the swimming pools, tennis courts, bar and restaurant facilities, gardens,
           all play areas, and woodland walks.</p>
       </mat-card>
 
-      <mat-card class="membership-card" [class.selected]="membershipForm.get('selectedMembership')?.value === 'social'"
+      <mat-card class="membership-card" [class.selected]="membershipForm.get('membership_type')?.value === 'social'"
                 (click)="selectMembership('social')">
         <h2>Social Membership</h2>
         <p>Social membership covers the use of the bar and restaurant facilities, gardens, some play areas, and woodland
