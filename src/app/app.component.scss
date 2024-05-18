@@ -117,6 +117,13 @@ form {
   max-width: 800px;
   font-size: 16px;
 
+  label{
+    span{
+      color: rgba(255, 255, 255, 0.5);
+      font-size: 12px;
+    }
+  }
+
   .form-group {
     width: 100%;
     margin-bottom: 20px;
@@ -161,6 +168,9 @@ div.pricing-table {
   margin-top: 32px;
   border-collapse: collapse; /* Optional: to remove the gaps between cells */
 
+  h1{
+    text-transform: uppercase;
+  }
   div.row {
     border-bottom: 1px solid var(--colour-white, #FFF);
     padding: 16px 0px;
