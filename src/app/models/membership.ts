@@ -64,10 +64,6 @@ export class Membership {
             adult: 775,
             senior: 480
           },
-          couple: {
-            adult: 1550,
-            senior: 960
-          },
           family: {
             3: 1800,
             4: 2050,
@@ -80,10 +76,6 @@ export class Membership {
             adult: 575,
             senior: 410
           },
-          couple: {
-            adult: 1150,
-            senior: 820
-          },
           family: {
             3: 1310,
             4: 1470,
@@ -95,10 +87,6 @@ export class Membership {
           individual: {
             adult: 250,
             senior: 200
-          },
-          couple: {
-            adult: 500,
-            senior: 400
           },
           family: {
             3: 600,
@@ -138,11 +126,27 @@ export class Membership {
     let membership_type = this.membership_type;
 
     // @ts-ignore
-    console.log(memberships[membership_type][this.category]);
-
-    costs.annual_cost = 12;
-
+    let membership_type_prices = memberships[membership_type];
+    console.log(membership_type_prices);
+    costs.annual_cost = 0;
+    console.log(`membership_type: ${membership_type}`);
+    switch (this.category) {
+      case 'individual':
+        if (this.adults) {
+          costs.annual_cost = membership_type_prices.individual.adult;
+        } else if (this.seniors) {
+          costs.annual_cost = membership_type_prices.individual.senior;
+        }
+        break;
+      case 'couple':
+        costs.annual_cost =(this.adults + this.children) * membership_type_prices.individual.adult + this.seniors * membership_type_prices.individual.senior;
+        break;
+      case 'family':
+        costs.annual_cost = membership_type_prices.family[this.adults + this.seniors + this.children];
+        break;
+    }
     costs.monthly_cost = costs.annual_cost / 12;
+    console.log(costs);
     return costs;
   }
 }
