@@ -41,10 +41,12 @@
           <button type="button" mat-button [class.selected]="membershipForm.get('seniors')?.value === 0"
                   (click)="setSeniors(0)">0
           </button>
-          <button type="button" mat-button [class.selected]="membershipForm.get('seniors')?.value === 1" [disabled]="membershipForm.get('adults')?.value>1"
+          <button type="button" mat-button [class.selected]="membershipForm.get('seniors')?.value === 1"
+                  [disabled]="membershipForm.get('adults')?.value>1"
                   (click)="setSeniors(1)">1
           </button>
-          <button type="button" mat-button [disabled]="membershipForm.get('adults')?.value>=1" [class.selected]="membershipForm.get('seniors')?.value === 2"
+          <button type="button" mat-button [disabled]="membershipForm.get('adults')?.value>=1"
+                  [class.selected]="membershipForm.get('seniors')?.value === 2"
                   (click)="setSeniors(2)">2
           </button>
         </div>
@@ -55,7 +57,8 @@
         <div class="options">
           <button *ngFor="let count of childrenCounts" type="button" mat-button
                   [class.selected]="membershipForm.get('children')?.value === count"
-                  (click)="setChildren(count)">
+                  (click)="setChildren(count)"
+                  [disabled]="!(membershipForm.get('adults')?.value + membershipForm.get('seniors')?.value)">
             {{ count }}
           </button>
         </div>
@@ -65,10 +68,10 @@
         <label>Do you have a nanny?</label>
         <div class="options">
           <button type="button" mat-button [class.selected]="membershipForm.get('nanny')?.value === true"
-                  (click)="setNanny(true)">Yes
+                  (click)="setNanny(true)" [disabled]="!membershipForm.get('children')?.value">Yes
           </button>
           <button type="button" mat-button [class.selected]="membershipForm.get('nanny')?.value === false"
-                  (click)="setNanny(false)">No
+                  (click)="setNanny(false)" [disabled]="!membershipForm.get('children')?.value">No
           </button>
         </div>
       </div>
@@ -106,7 +109,7 @@
 
       <div class="pricing-table">
         <div class="row">
-          <h1>{{membership?.name}} membership</h1>
+          <h1>{{ membership?.name }} membership</h1>
         </div>
         <div class="row">
           <div class="table-cell">Entrance fee*</div>
