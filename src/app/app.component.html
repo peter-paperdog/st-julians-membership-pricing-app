@@ -20,39 +20,40 @@
       </mat-card>
     </section>
 
+    {{membership|json}}
 
     <form [formGroup]="membershipForm" (ngSubmit)="onSubmit()">
       <div class="form-group">
-        <label>Adults (18-65)</label>
+        <label>Adults <span>(18-65)</span></label>
         <div class="options">
           <button type="button" mat-button [class.selected]="membershipForm.get('adults')?.value === 0"
                   (click)="setAdults(0)">0
           </button>
           <button type="button" mat-button [class.selected]="membershipForm.get('adults')?.value === 1"
-                  (click)="setAdults(1)">1
+                  (click)="setAdults(1)" [disabled]="membershipForm.get('seniors')?.value>1">1
           </button>
           <button type="button" mat-button [class.selected]="membershipForm.get('adults')?.value === 2"
-                  (click)="setAdults(2)">2
+                  (click)="setAdults(2)" [disabled]="membershipForm.get('seniors')?.value>=1">2
           </button>
         </div>
       </div>
       <div class="form-group">
-        <label>Seniors (65+)</label>
+        <label>Seniors <span>(65+)</span></label>
         <div class="options">
           <button type="button" mat-button [class.selected]="membershipForm.get('seniors')?.value === 0"
                   (click)="setSeniors(0)">0
           </button>
-          <button type="button" mat-button [class.selected]="membershipForm.get('seniors')?.value === 1"
+          <button type="button" mat-button [class.selected]="membershipForm.get('seniors')?.value === 1" [disabled]="membershipForm.get('adults')?.value>1"
                   (click)="setSeniors(1)">1
           </button>
-          <button type="button" mat-button [class.selected]="membershipForm.get('seniors')?.value === 2"
+          <button type="button" mat-button [disabled]="membershipForm.get('adults')?.value>=1" [class.selected]="membershipForm.get('seniors')?.value === 2"
                   (click)="setSeniors(2)">2
           </button>
         </div>
       </div>
 
       <div class="form-group">
-        <label>Children</label>
+        <label>Children <span>(3+)</span></label>
         <div class="options">
           <button *ngFor="let count of childrenCounts" type="button" mat-button
                   [class.selected]="membershipForm.get('children')?.value === count"
@@ -106,6 +107,9 @@
       </div>
 
       <div class="pricing-table">
+        <div class="row">
+          <h1>{{membership?.name}} membership</h1>
+        </div>
         <div class="row">
           <div class="table-cell">Entrance fee*</div>
           <div class="table-cell price">
