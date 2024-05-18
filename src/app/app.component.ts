@@ -1,6 +1,6 @@
 import {Component} from '@angular/core';
 import {FormControl, FormGroup, Validators} from "@angular/forms";
-import {ukPostcodeValidator} from './validators';
+import {nannyRequiredIfChildrenNotZero, ukPostcodeValidator} from './validators';
 import {PostcodeService} from "./services/postcode.service";
 import {DistanceService} from "./services/distance.service";
 import {Costs} from "./models/costs";
@@ -33,6 +33,30 @@ export class AppComponent {
   }
 
   ngOnInit() {
+    const nannyControl = this.membershipForm.get('nanny');
+    const childrenControl = this.membershipForm.get('children');
+    const adultsControl = this.membershipForm.get('adults');
+    const seniorsControl = this.membershipForm.get('seniors');
+
+
+    if (adultsControl && seniorsControl) {
+      adultsControl.valueChanges.subscribe(() => this.updateChildrenControl());
+      seniorsControl.valueChanges.subscribe(() => this.updateChildrenControl());
+    }
+
+    // Update the validator for the nanny field
+    if (nannyControl) {
+      nannyControl.setValidators([nannyRequiredIfChildrenNotZero]);
+
+      // Manually trigger validation updates when the children field changes
+      if (childrenControl) {
+        childrenControl.valueChanges.subscribe(() => {
+          nannyControl.updateValueAndValidity();
+          nannyControl.setValue(undefined);
+        });
+      }
+    }
+
     this.membershipForm.valueChanges.subscribe(() => {
       this.handleValueChanges();
     });
@@ -47,21 +71,21 @@ export class AppComponent {
         this.handleValidPostcode(postcode.toUpperCase());
       }
     })
-/*
-    let formData =
-      {
-        membership_type: 'full',
-        past_member: false,
-        adults: 1,
-        seniors: 0,
-        children: 3,
-        nanny: false,
-        pastMember: false,
-        postcode: 'SE14PR',
-        distance: 33.3
-      }
-    this.membershipForm.patchValue(formData);
- */
+    /*
+        let formData =
+          {
+            membership_type: 'full',
+            past_member: false,
+            adults: 1,
+            seniors: 0,
+            children: 3,
+            nanny: false,
+            pastMember: false,
+            postcode: 'SE14PR',
+            distance: 33.3
+          }
+        this.membershipForm.patchValue(formData);
+     */
   }
 
   setChildren(number: number) {
@@ -86,6 +110,13 @@ export class AppComponent {
 
   selectMembership(membership: 'full' | 'social') {
     this.membershipForm.get('membership_type')?.setValue(membership);
+  }
+
+  private updateChildrenControl() {
+    let parents = this.membershipForm.get('adults')?.value + this.membershipForm.get('seniors')?.value;
+    if (!parents) {
+      this.membershipForm.get('children')?.setValue(undefined);
+    }
   }
 
   private handleValueChanges() {
