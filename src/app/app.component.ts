@@ -47,9 +47,7 @@ export class AppComponent {
         this.handleValidPostcode(postcode.toUpperCase());
       }
     })
-
-
-
+/*
     let formData =
       {
         membership_type: 'full',
@@ -63,6 +61,7 @@ export class AppComponent {
         distance: 33.3
       }
     this.membershipForm.patchValue(formData);
+ */
   }
 
   setChildren(number: number) {
