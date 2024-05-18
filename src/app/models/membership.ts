@@ -127,9 +127,8 @@ export class Membership {
 
     // @ts-ignore
     let membership_type_prices = memberships[membership_type];
-    console.log(membership_type_prices);
     costs.annual_cost = 0;
-    console.log(`membership_type: ${membership_type}`);
+
     switch (this.category) {
       case 'individual':
         if (this.adults) {
@@ -146,7 +145,6 @@ export class Membership {
         break;
     }
     costs.monthly_cost = costs.annual_cost / 12;
-    console.log(costs);
     return costs;
   }
 }
