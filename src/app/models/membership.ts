@@ -124,7 +124,7 @@ export class Membership {
       monthly_cost: 0,
       annual_cost: 0
     }
-    if (this.past_member === false) {
+    if (!this.past_member) {
       if (this.category === 'individual') {
         costs.entrance_fee = prices.entrance_fee.individual;
       } else if (this.category === 'couple') {
