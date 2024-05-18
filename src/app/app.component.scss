@@ -28,7 +28,7 @@ main {
   padding: 20px;
   margin: 0 auto;
   max-width: 600px;
- }
+}
 
 footer {
   font-family: "Montserrat", sans-serif !important;
@@ -72,17 +72,27 @@ main {
 
 }
 
-section.membership-cards{
+section.membership-cards {
   mat-card {
     width: 100%;
     margin: 0 auto;
     padding: 20px;
-    background-color: #4A6A69; /* Mat card background color to match design */
+    background: #4A6A69; /* Mat card background color to match design */
     color: white;
     box-shadow: none;
     display: flex;
     flex-direction: column;
     align-items: center;
+    max-width: 400px;
+    cursor: pointer;
+    transition: transform 0.3s, box-shadow 0.3s;
+
+    &.membership-card.selected {
+      background-color: white; /* Highlight color for selected card */
+      color: #668077;
+      transform: scale(1.05);
+      box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.3);
+    }
   }
 }
 
@@ -92,22 +102,6 @@ label {
   margin-bottom: 5px;
 }
 
-.membership-card {
-  width: 100%;
-  max-width: 400px;
-  padding: 20px;
-  background: var(--colour-white-20, rgba(255, 255, 255, 0.20));
-  color: white;
-  cursor: pointer;
-  transition: transform 0.3s, box-shadow 0.3s;
-}
-
-.membership-card.selected {
-  background-color: white; /* Highlight color for selected card */
-  color: #668077;
-  transform: scale(1.05);
-  box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.3);
-}
 
 .membership-cards {
   display: flex;
@@ -119,8 +113,8 @@ form {
   max-width: 800px;
   font-size: 16px;
 
-  label{
-    span{
+  label {
+    span {
       color: rgba(255, 255, 255, 0.5);
       font-size: 12px;
     }
@@ -170,9 +164,10 @@ div.pricing-table {
   margin-top: 32px;
   border-collapse: collapse; /* Optional: to remove the gaps between cells */
 
-  h1{
+  h1 {
     text-transform: uppercase;
   }
+
   div.row {
     border-bottom: 1px solid var(--colour-white, #FFF);
     padding: 16px 0px;
@@ -200,6 +195,7 @@ div.pricing-table {
           margin-left: 12px;
           text-decoration: line-through;
           color: var(--colour-white-50, rgba(255, 255, 255, 0.50));
+
           &:last-of-type {
             color: white;
             text-decoration: none;
