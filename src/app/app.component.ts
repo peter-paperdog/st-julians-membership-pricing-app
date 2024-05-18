@@ -54,7 +54,7 @@ export class AppComponent {
       {
         membership_type: 'full',
         past_member: false,
-        adults: 2,
+        adults: 1,
         seniors: 0,
         children: 3,
         nanny: false,
@@ -133,4 +133,6 @@ export class AppComponent {
       console.error(error);
     })
   }
+
+  protected readonly Membership = Membership;
 }
