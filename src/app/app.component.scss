@@ -11,6 +11,7 @@ a {
   justify-content: space-between;
   color: white !important;
   font-family: "EB Garamond", serif !important;
+  background: linear-gradient(0deg, var(--colour-black-10, rgba(0, 0, 0, 0.10)) 0%, var(--colour-black-10, rgba(0, 0, 0, 0.10)) 100%), var(--colour-rosemary, #668077);
 }
 
 header {
@@ -25,8 +26,9 @@ main {
   justify-content: center;
   align-items: center;
   padding: 20px;
-  background: linear-gradient(0deg, var(--colour-black-10, rgba(0, 0, 0, 0.10)) 0%, var(--colour-black-10, rgba(0, 0, 0, 0.10)) 100%), var(--colour-rosemary, #668077);
-}
+  margin: 0 auto;
+  max-width: 600px;
+ }
 
 footer {
   font-family: "Montserrat", sans-serif !important;
@@ -63,7 +65,6 @@ main {
   flex-direction: column;
   align-items: center; /* Horizontally centers the content */
   justify-content: center; /* Vertically centers the content */
-  padding: 56px 160px;
 
   form {
     font-family: "Montserrat", sans-serif;
@@ -71,17 +72,18 @@ main {
 
 }
 
-section.membership-cards mat-card {
-  width: 100%;
-  max-width: 600px;
-  margin: 0 auto;
-  padding: 20px;
-  background-color: #4A6A69; /* Mat card background color to match design */
-  color: white;
-  box-shadow: none;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+section.membership-cards{
+  mat-card {
+    width: 100%;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #4A6A69; /* Mat card background color to match design */
+    color: white;
+    box-shadow: none;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
 }
 
 label {
@@ -224,5 +226,12 @@ div.pricing-table {
 
   div {
     margin-top: 10px;
+  }
+}
+
+@media (max-width: 600px) {
+  .form-group {
+    flex-direction: column;
+    align-items: flex-start;
   }
 }
