@@ -1,5 +1,4 @@
 import {Costs} from "./costs";
-import {MembershipService} from "../services/membership.service";
 
 export class Membership {
   name: string | undefined;
