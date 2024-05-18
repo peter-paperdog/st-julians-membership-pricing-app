@@ -25,16 +25,12 @@ export class Membership {
   }
 
   private initCategory() {
-    if (this.adults === 1 && this.children === 0) {
+    if ((this.adults + this.seniors + this.children) > 2) {
+      this.category = 'family';
+    } else if ((this.adults + this.seniors) === 2 || ((this.adults + this.seniors + this.children) === 2 && this.children === 1)) {
+      this.category = 'couple';
+    } else if ((this.adults + this.seniors + this.children) === 1) {
       this.category = 'individual';
-    } else if (this.adults === 1 && this.children === 1) {
-      this.category = 'couple';
-    } else if (this.adults === 1 && this.children > 1) {
-      this.category = 'family';
-    } else if (this.adults === 2 && this.children === 0) {
-      this.category = 'couple';
-    } else if (this.adults === 2 && this.children > 0) {
-      this.category = 'family';
     }
   }
 
@@ -52,7 +48,7 @@ export class Membership {
     this.name = `${this.membership_type} ${this.category}`;
 
     if (this.category === 'family') {
-      this.name = `${this.name} of ${this.adults + this.children}`;
+      this.name = `${this.name} of ${this.adults + this.seniors + this.children}`;
     }
   }
 
@@ -142,8 +138,8 @@ export class Membership {
     let memberships = prices.memberships;
     let membership_type = this.membership_type;
 
-      // @ts-ignore
-      console.log(memberships[membership_type][this.category]);
+    // @ts-ignore
+    console.log(memberships[membership_type][this.category]);
 
     costs.annual_cost = 12;
 
