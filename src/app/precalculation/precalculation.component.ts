@@ -7,7 +7,8 @@ import {MembershipService} from "../services/membership.service";
 import {nannyRequiredIfChildrenNotZero, ukPostcodeValidator} from "../validators";
 import {AppConfig} from "../app-config";
 import {Membership} from "./../models/membership";
-import {Router} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
+import {TitleService} from "../services/title.service";
 @Component({
   selector: 'app-precalculation',
   templateUrl: './precalculation.component.html',
@@ -19,7 +20,7 @@ export class PrecalculationComponent {
   membershipForm: FormGroup;
   childrenCounts = [0, 1, 2, 3, 4]; // Array to store the number of children options
 
-  constructor(private postcodeSrv: PostcodeService, private distanceService: DistanceService, private MembershipSrv: MembershipService, private router: Router) {
+  constructor(private route: ActivatedRoute, private titleService: TitleService, private postcodeSrv: PostcodeService, private distanceService: DistanceService, private MembershipSrv: MembershipService, private router: Router) {
     this.membershipForm = new FormGroup({
       membership_type: new FormControl(undefined, Validators.required),
       adults: new FormControl(undefined, Validators.required),
@@ -33,6 +34,10 @@ export class PrecalculationComponent {
   }
 
   ngOnInit() {
+    this.route.data.subscribe(data => {
+      this.titleService.changeTitle(data['title']);
+    });
+
     const nannyControl = this.membershipForm.get('nanny');
     const childrenControl = this.membershipForm.get('children');
     const adultsControl = this.membershipForm.get('adults');

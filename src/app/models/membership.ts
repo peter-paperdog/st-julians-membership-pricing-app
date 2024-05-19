@@ -1,6 +1,20 @@
 import {Costs} from "./costs";
 
 export class Membership {
+  get nanny(): boolean | undefined {
+    return this._nanny;
+  }
+
+  set nanny(value: boolean | undefined) {
+    this._nanny = value;
+  }
+  get past_member(): boolean {
+    return this._past_member;
+  }
+
+  public set past_member(value: boolean) {
+    this._past_member = value;
+  }
   name: string | undefined;
   membership_type: string;
   category: 'individual' | 'couple' | 'family' | undefined;
@@ -9,7 +23,8 @@ export class Membership {
   seniors: number;
   children: number;
   postcode: string;
-  past_member: boolean;
+  private _nanny: boolean | undefined;
+  private _past_member: boolean;
 
   constructor(postcode: string, distance: number, membership_type: string, adults: number, seniors: number, children: number, past_member: boolean) {
     this.postcode = postcode;
@@ -17,7 +32,7 @@ export class Membership {
     this.seniors = seniors;
     this.children = children;
     this.membership_type = membership_type;
-    this.past_member = past_member;
+    this._past_member = past_member;
     this.initMembershipType(membership_type, distance);
     this.initCategory();
     this.initName();
@@ -114,7 +129,7 @@ export class Membership {
       monthly_cost_original: 0,
       annual_cost_original: 0
     }
-    if (!this.past_member) {
+    if (!this._past_member) {
       if (this.category === 'individual') {
         costs.entrance_fee = prices.entrance_fee.individual;
       } else if (this.category === 'couple') {
