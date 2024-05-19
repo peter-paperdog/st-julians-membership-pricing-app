@@ -14,13 +14,18 @@ import {MatInput} from "@angular/material/input";
 import {ReactiveFormsModule} from "@angular/forms";
 import {HttpClientModule} from "@angular/common/http";
 import { CurrencyFormatterPipe } from './currency-formatter.pipe';
+import { PrecalculationComponent } from './precalculation/precalculation.component';
+import { ApplicationFormComponent } from './application-form/application-form.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    CurrencyFormatterPipe
+    CurrencyFormatterPipe,
+    PrecalculationComponent,
+    ApplicationFormComponent
   ],
   imports: [
+    AppRoutingModule,
     HttpClientModule,
     MatCard,
     MatLabel,
