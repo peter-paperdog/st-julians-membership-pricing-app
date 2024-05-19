@@ -110,7 +110,9 @@ export class Membership {
     let costs = {
       entrance_fee: 0,
       monthly_cost: 0,
-      annual_cost: 0
+      annual_cost: 0,
+      monthly_cost_original: 0,
+      annual_cost_original: 0
     }
     if (!this.past_member) {
       if (this.category === 'individual') {
@@ -136,15 +138,38 @@ export class Membership {
         } else if (this.seniors) {
           costs.annual_cost = membership_type_prices.individual.senior;
         }
+
+        //calculate discounted price
+        if (membership_type === 'country') {
+          if (this.adults) {
+            costs.annual_cost_original = memberships.full.individual.adult;
+          } else if (this.seniors) {
+            costs.annual_cost_original = memberships.full.individual.senior;
+          }
+        }
         break;
       case 'couple':
-        costs.annual_cost =(this.adults + this.children) * membership_type_prices.individual.adult + this.seniors * membership_type_prices.individual.senior;
+        costs.annual_cost = (this.adults + this.children) * membership_type_prices.individual.adult + this.seniors * membership_type_prices.individual.senior;
+
+        //calculate discounted price
+        if (membership_type === 'country') {
+          costs.annual_cost_original = (this.adults + this.children) * memberships.full.individual.adult + this.seniors * memberships.full.individual.senior;
+        }
         break;
       case 'family':
         costs.annual_cost = membership_type_prices.family[this.adults + this.seniors + this.children];
+
+        //calculate discounted price
+        if (membership_type === 'country') {
+          // @ts-ignore
+          costs.annual_cost_original = memberships.full.family[this.adults + this.seniors + this.children];
+        }
         break;
     }
     costs.monthly_cost = costs.annual_cost / 12;
+    if (costs.annual_cost_original > 0) {
+      costs.monthly_cost_original = costs.annual_cost_original / 12;
+    }
     return costs;
   }
 }
