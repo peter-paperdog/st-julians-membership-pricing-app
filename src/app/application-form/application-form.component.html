@@ -1,2 +1,108 @@
+<h1 class="header">Please fill out the membership application form below to apply for a <span>{{ membership?.name }}
+  membership</span>
+</h1>
 
-{{membership|json}}
+<form [formGroup]="membershipApplicationForm" (ngSubmit)="onSubmit()" *ngIf="membership && membership!==undefined">
+
+
+  <div class="form-group" *ngFor="let i of getMemberArray(membership.adults)">
+    <h2>{{ i }}. adult data</h2>
+    <div class="fields">
+      <mat-form-field>
+        <mat-label>Firstname</mat-label>
+        <input matInput>
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Lastname</mat-label>
+        <input matInput>
+      </mat-form-field>
+    </div>
+    <div class="fields">
+      <mat-form-field>
+        <mat-label>Date of Birth</mat-label>
+        <input matInput type="date">
+      </mat-form-field>
+    </div>
+    <div class="fields">
+      <mat-form-field>
+        <mat-label>Mobile</mat-label>
+        <input matInput>
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Email</mat-label>
+        <input matInput>
+      </mat-form-field>
+    </div>
+  </div>
+  <div class="form-group" *ngFor="let i of getMemberArray(membership.seniors)">
+    <h2>{{ i }}. senior data</h2>
+    <div class="fields">
+      <mat-form-field>
+        <mat-label>Firstname</mat-label>
+        <input matInput>
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Lastname</mat-label>
+        <input matInput>
+      </mat-form-field>
+    </div>
+    <div class="fields">
+      <mat-form-field>
+        <mat-label>Date of Birth</mat-label>
+        <input matInput type="date">
+      </mat-form-field>
+    </div>
+    <div class="fields">
+      <mat-form-field>
+        <mat-label>Mobile</mat-label>
+        <input matInput>
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Email</mat-label>
+        <input matInput>
+      </mat-form-field>
+    </div>
+  </div>
+  <div class="form-group" *ngFor="let i of getMemberArray(membership.children)">
+    <h2>{{ i }}. child data</h2>
+    <div class="fields">
+      <mat-form-field>
+        <mat-label>Firstname</mat-label>
+        <input matInput>
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Lastname</mat-label>
+        <input matInput>
+      </mat-form-field>
+    </div>
+    <div class="fields">
+      <mat-form-field>
+        <mat-label>Date of Birth</mat-label>
+        <input matInput type="date">
+      </mat-form-field>
+    </div>
+  </div>
+  <div class="form-group">
+    <h2>Contact details</h2>
+    <div class="fields">
+      <mat-form-field>
+        <mat-label>Postcode</mat-label>
+        <input matInput type="text" [value]="membership.postcode">
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Telephone</mat-label>
+        <input matInput type="phone">
+      </mat-form-field>
+    </div>
+    <div class="fields">
+      <mat-form-field>
+        <mat-label>Address</mat-label>
+        <input matInput type="text">
+      </mat-form-field>
+    </div>
+    <div class="fields">
+      <button mat-raised-button type="button" color="white">Download form</button>
+      <button mat-raised-button type="submit" color="white">Submit form</button>
+    </div>
+  </div>
+</form>

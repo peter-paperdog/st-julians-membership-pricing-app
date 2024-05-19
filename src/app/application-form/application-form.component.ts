@@ -2,6 +2,7 @@ import {Component} from '@angular/core';
 import {ActivatedRoute} from "@angular/router";
 import {Membership} from "../models/membership";
 import {TitleService} from "../services/title.service";
+import {FormGroup} from "@angular/forms";
 
 @Component({
   selector: 'app-application-form',
@@ -10,8 +11,10 @@ import {TitleService} from "../services/title.service";
 })
 export class ApplicationFormComponent {
   membership: Membership | undefined;
+  membershipApplicationForm: FormGroup;
 
   constructor(private route: ActivatedRoute, private titleService: TitleService) {
+    this.membershipApplicationForm = new FormGroup({});
   }
 
   ngOnInit(): void {
@@ -32,5 +35,11 @@ export class ApplicationFormComponent {
       this.membership = new Membership(postcode, distance, membership_type, adults, seniors, children, past_member);
       this.membership.nanny = params['nanny'];
     });
+  }
+  getMemberArray(num: number): number[] {
+    return Array.from({ length: num }, (_, index) => index + 1);
+  }
+  onSubmit() {
+
   }
 }
