@@ -5,104 +5,105 @@
 <form [formGroup]="membershipApplicationForm" (ngSubmit)="onSubmit()" *ngIf="membership && membership!==undefined">
 
 
-  <div class="form-group" *ngFor="let i of getMemberArray(membership.adults)">
-    <h2>{{ i }}. adult data</h2>
+  <div class="form-group" *ngFor="let index of getMemberArray(membership.adults)">
+    <h2>{{ index === 1 ? 'Primary member' : 'Joint member' }} data</h2>
     <div class="fields">
       <mat-form-field>
         <mat-label>Firstname</mat-label>
-        <input matInput>
+        <input type="text" matInput required>
       </mat-form-field>
       <mat-form-field>
         <mat-label>Lastname</mat-label>
-        <input matInput>
+        <input type="text" matInput required>
       </mat-form-field>
     </div>
     <div class="fields">
       <mat-form-field>
         <mat-label>Date of Birth</mat-label>
-        <input matInput type="date">
+        <input type="date" matInput required>
       </mat-form-field>
     </div>
     <div class="fields">
       <mat-form-field>
         <mat-label>Mobile</mat-label>
-        <input matInput>
+        <input type="text" matInput required>
       </mat-form-field>
       <mat-form-field>
         <mat-label>Email</mat-label>
-        <input matInput>
+        <input type="text" matInput required>
       </mat-form-field>
     </div>
   </div>
-  <div class="form-group" *ngFor="let i of getMemberArray(membership.seniors)">
-    <h2>{{ i }}. senior data</h2>
+  <div class="form-group" *ngFor="let index of getMemberArray(membership.seniors)">
+    <h2>{{ index === 0 && membership.adults === 0 ? 'Primary member' : 'Joint member' }} data</h2>
     <div class="fields">
       <mat-form-field>
         <mat-label>Firstname</mat-label>
-        <input matInput>
+        <input type="text" matInput required>
       </mat-form-field>
       <mat-form-field>
         <mat-label>Lastname</mat-label>
-        <input matInput>
+        <input type="text" matInput required>
       </mat-form-field>
     </div>
     <div class="fields">
       <mat-form-field>
         <mat-label>Date of Birth</mat-label>
-        <input matInput type="date">
+        <input type="date" matInput required>
       </mat-form-field>
     </div>
     <div class="fields">
       <mat-form-field>
         <mat-label>Mobile</mat-label>
-        <input matInput>
+        <input type="text" matInput>
       </mat-form-field>
       <mat-form-field>
         <mat-label>Email</mat-label>
-        <input matInput>
+        <input type="text" matInput>
       </mat-form-field>
     </div>
   </div>
-  <div class="form-group" *ngFor="let i of getMemberArray(membership.children)">
-    <h2>{{ i }}. child data</h2>
+  <div class="form-group" *ngFor="let index of getMemberArray(membership!.children)">
+    <h2>{{ membership?.getOrdinalSuffix(index) }} child data</h2>
     <div class="fields">
       <mat-form-field>
         <mat-label>Firstname</mat-label>
-        <input matInput>
+        <input type="text" matInput required>
       </mat-form-field>
       <mat-form-field>
         <mat-label>Lastname</mat-label>
-        <input matInput>
+        <input type="text" matInput required>
       </mat-form-field>
     </div>
     <div class="fields">
       <mat-form-field>
         <mat-label>Date of Birth</mat-label>
-        <input matInput type="date">
+        <input type="date" matInput required>
       </mat-form-field>
     </div>
   </div>
+  <hr>
   <div class="form-group">
     <h2>Contact details</h2>
     <div class="fields">
       <mat-form-field>
         <mat-label>Postcode</mat-label>
-        <input matInput type="text" [value]="membership.postcode">
+        <input type="text" matInput [value]="membership!.postcode" required>
       </mat-form-field>
       <mat-form-field>
         <mat-label>Telephone</mat-label>
-        <input matInput type="phone">
+        <input type="phone" matInput required>
       </mat-form-field>
     </div>
     <div class="fields">
       <mat-form-field>
         <mat-label>Address</mat-label>
-        <input matInput type="text">
+        <input type="text" matInput required>
       </mat-form-field>
     </div>
     <div class="fields">
-      <button mat-raised-button type="button" color="white">Download form</button>
-      <button mat-raised-button type="submit" color="white">Submit form</button>
+      <button type="button" mat-raised-button color="white">Download form</button>
+      <button type="submit" mat-raised-button color="white">Submit form</button>
     </div>
   </div>
 </form>

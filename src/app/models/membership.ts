@@ -8,6 +8,7 @@ export class Membership {
   set nanny(value: boolean | undefined) {
     this._nanny = value;
   }
+
   get past_member(): boolean {
     return this._past_member;
   }
@@ -15,6 +16,7 @@ export class Membership {
   public set past_member(value: boolean) {
     this._past_member = value;
   }
+
   name: string | undefined;
   membership_type: string;
   category: 'individual' | 'couple' | 'family' | undefined;
@@ -186,5 +188,19 @@ export class Membership {
       costs.monthly_cost_original = costs.annual_cost_original / 12;
     }
     return costs;
+  }
+
+  public getOrdinalSuffix(i: number): string {
+    const j = i % 10, k = i % 100;
+    if (j == 1 && k != 11) {
+      return i + "st";
+    }
+    if (j == 2 && k != 12) {
+      return i + "nd";
+    }
+    if (j == 3 && k != 13) {
+      return i + "rd";
+    }
+    return i + "th";
   }
 }
