@@ -1,7 +1,7 @@
 import {Component} from '@angular/core';
 import {ActivatedRoute} from "@angular/router";
-import {Membership} from "../models/membership";
-import {TitleService} from "../services/title.service";
+import {Membership} from "../../models/membership";
+import {TitleService} from "../../services/title.service";
 import {FormGroup} from "@angular/forms";
 
 @Component({

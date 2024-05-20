@@ -1,14 +1,14 @@
 import { Component } from '@angular/core';
-import {Costs} from "../models/costs";
+import {Costs} from "../../models/costs";
 import {FormControl, FormGroup, Validators} from "@angular/forms";
-import {PostcodeService} from "../services/postcode.service";
-import {DistanceService} from "../services/distance.service";
-import {MembershipService} from "../services/membership.service";
-import {nannyRequiredIfChildrenNotZero, ukPostcodeValidator} from "../validators";
-import {AppConfig} from "../app-config";
-import {Membership} from "./../models/membership";
+import {PostcodeService} from "../../services/postcode.service";
+import {DistanceService} from "../../services/distance.service";
+import {MembershipService} from "../../services/membership.service";
+import {nannyRequiredIfChildrenNotZero, ukPostcodeValidator} from "../../validators";
+import {AppConfig} from "../../app-config";
+import {Membership} from "../../models/membership";
 import {ActivatedRoute, Router} from "@angular/router";
-import {TitleService} from "../services/title.service";
+import {TitleService} from "../../services/title.service";
 @Component({
   selector: 'app-precalculation',
   templateUrl: './precalculation.component.html',
