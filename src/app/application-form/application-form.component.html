@@ -2,9 +2,7 @@
   membership</span>
 </h1>
 
-<form [formGroup]="membershipApplicationForm" (ngSubmit)="onSubmit()" *ngIf="membership && membership!==undefined">
-
-
+<form [formGroup]="membershipApplicationForm" (ngSubmit)="onSubmit()" *ngIf="membership">
   <div class="form-group" *ngFor="let index of getMemberArray(membership.adults)">
     <h2>{{ index === 1 ? 'Primary member' : 'Joint member' }} data</h2>
     <div class="fields">
