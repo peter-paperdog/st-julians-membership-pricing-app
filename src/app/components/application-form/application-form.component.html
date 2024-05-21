@@ -2,10 +2,16 @@
   membership</span>
 </h1>
 
-<form [formGroup]="membershipApplicationForm" (ngSubmit)="onSubmit()" *ngIf="membership">
+<form [formGroup]="applicationForm" (ngSubmit)="onSubmit()" *ngIf="membership">
   <div class="form-group" *ngFor="let index of getMemberArray(membership.adults)">
     <h2>{{ index === 1 ? 'Primary member' : 'Joint member' }} data</h2>
     <div class="fields">
+      <mat-form-field>
+        <mat-label>Title</mat-label>
+        <mat-select formControlName="title">
+          <mat-option *ngFor="let title of titles" [value]="title">{{ title }}</mat-option>
+        </mat-select>
+      </mat-form-field>
       <mat-form-field>
         <mat-label>Firstname</mat-label>
         <input type="text" matInput required>
@@ -36,6 +42,12 @@
     <h2>{{ index === 0 && membership.adults === 0 ? 'Primary member' : 'Joint member' }} data</h2>
     <div class="fields">
       <mat-form-field>
+        <mat-label>Title</mat-label>
+        <mat-select formControlName="title">
+          <mat-option *ngFor="let title of titles" [value]="title">{{ title }}</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field>
         <mat-label>Firstname</mat-label>
         <input type="text" matInput required>
       </mat-form-field>
@@ -64,6 +76,12 @@
   <div class="form-group" *ngFor="let index of getMemberArray(membership!.children)">
     <h2>{{ membership?.getOrdinalSuffix(index) }} child data</h2>
     <div class="fields">
+      <mat-form-field>
+        <mat-label>Title</mat-label>
+        <mat-select formControlName="title">
+          <mat-option *ngFor="let title of titles" [value]="title">{{ title }}</mat-option>
+        </mat-select>
+      </mat-form-field>
       <mat-form-field>
         <mat-label>Firstname</mat-label>
         <input type="text" matInput required>
@@ -105,3 +123,4 @@
     </div>
   </div>
 </form>
+{{applicationForm.getRawValue()|json}}
